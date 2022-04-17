@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -5,7 +6,8 @@ public class AvatarControl : MonoBehaviour
 {
     [SerializeField] float speed = 5f;
     [SerializeField] float rotationSpeed = 1f;
-    public GameObject flockPref;
+    [SerializeField] GameObject flockPref;
+    [SerializeField] Transform flockParent;
 
     float _pitch, _yaw, _roll;
     Transform _trans;
@@ -22,11 +24,12 @@ public class AvatarControl : MonoBehaviour
     
     IEnumerator Flocking()
     {
-        var go = Instantiate(flockPref, new Vector3(0, 100, 0), Quaternion.identity);
+        Instantiate(flockPref, new Vector3(0, 100, 0), Quaternion.identity, flockParent);
         _birdInFlock = GameObject.Find("Bird Pref B(Clone)");
-        gameObject.transform.SetParent(_birdInFlock.transform, false);
-        _trans = gameObject.GetComponentInParent<Transform>().parent;
+        _trans = _birdInFlock.transform;
         
+        transform.SetParent(_trans, false);
+
         while (_avatarControlInFlock)
         {
             var hor = Input.GetAxis("Horizontal");
@@ -44,8 +47,8 @@ public class AvatarControl : MonoBehaviour
             if (boost) _trans.position += _trans.forward * (Time.deltaTime * speed);
             yield return null;
         }
-        _trans.SetParent(null);
-        Destroy(go);
+        transform.SetParent(flockParent, false);
+        Destroy(_trans.parent.gameObject);
     }
     
     void Update()

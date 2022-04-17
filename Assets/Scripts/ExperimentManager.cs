@@ -39,6 +39,8 @@ public class ExperimentManager : MonoBehaviour
             yield return new WaitForSeconds(5f);
             ExpEventBus.Publish(ExpEvents.ActionEnd);
             
+            yield return new WaitForSeconds(1f);
+            
             // start instruction at the end of the trial
             // ExpEventBus.Publish(ExpEvents.InstFinishBegin);
                 
