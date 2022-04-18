@@ -32,11 +32,11 @@ public class ExperimentManager : MonoBehaviour
             yield return new WaitUntil(() => _isInstStartFinished);
 
             // start action event
-            ExpEventBus.Publish(ExpEvents.ActionBegin);
+            ExpEventBus.Publish(trial.number == 1 ? ExpEvents.PracticeBegin : ExpEvents.ActionBegin);
 
             // wait for action to finish
             yield return new WaitForSeconds(5f);
-            ExpEventBus.Publish(ExpEvents.ActionEnd);
+            ExpEventBus.Publish(trial.number == 1 ? ExpEvents.PracticeEnd : ExpEvents.ActionEnd);
 
             // start evaluation at the end of the trial
             ExpEventBus.Publish(ExpEvents.EvaluationBegin);

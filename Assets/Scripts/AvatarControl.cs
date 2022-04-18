@@ -7,19 +7,23 @@ public class AvatarControl : MonoBehaviour
     [SerializeField] float speed = 5f;
     [SerializeField] float rotationSpeed = 1f;
     [SerializeField] GameObject flockPref;
+    [SerializeField] GameObject birdPref;
     [SerializeField] Transform flockParent;
 
     float _pitch, _yaw, _roll;
     Transform _trans;
     GameObject _birdInFlock, _birdAlone;
-    bool _avatarControlInFlock;
+    bool _isAvatarControl;
     
 
     void OnEnable() 
     {
-        ExpEventBus.Subscribe(ExpEvents.ActionBegin, () => _avatarControlInFlock = true);
+        ExpEventBus.Subscribe(ExpEvents.ActionBegin, () => _isAvatarControl = true);
+        ExpEventBus.Subscribe(ExpEvents.PracticeBegin, () => _isAvatarControl = true);
         ExpEventBus.Subscribe(ExpEvents.ActionBegin, () => StartCoroutine(Flocking()));
-        ExpEventBus.Subscribe(ExpEvents.ActionEnd, () => _avatarControlInFlock = false);
+        ExpEventBus.Subscribe(ExpEvents.PracticeBegin, () => StartCoroutine(PracticeFlocking()));
+        ExpEventBus.Subscribe(ExpEvents.ActionEnd, () => _isAvatarControl = false);
+        ExpEventBus.Subscribe(ExpEvents.PracticeEnd, () => _isAvatarControl = false);
     }
     
     IEnumerator Flocking()
@@ -30,7 +34,7 @@ public class AvatarControl : MonoBehaviour
         
         transform.SetParent(_trans, false);
 
-        while (_avatarControlInFlock)
+        while (_isAvatarControl)
         {
             var hor = Input.GetAxis("Horizontal");
             var ver = Input.GetAxis("Vertical");
@@ -51,25 +55,30 @@ public class AvatarControl : MonoBehaviour
         Destroy(_trans.parent.gameObject);
     }
     
-    void Update()
+    IEnumerator PracticeFlocking()
     {
-        if (false) // practice
+        Instantiate(birdPref, new Vector3(0, 100, 0), Quaternion.identity, flockParent);
+        _birdInFlock = GameObject.Find("Bird Pref B(Clone)");
+        _trans = _birdInFlock.transform;
+        
+        transform.SetParent(_trans, false);
+        
+        while (_isAvatarControl) // practice
         {
             var hor = Input.GetAxis("Horizontal");
             var ver = Input.GetAxis("Vertical");
-            var boost = Input.GetButton("Jump");
+            var boost = Input.GetAxis("Jump");
             
-            // (_pitch, _yaw, _roll) = _trans.rotation;
-            // _pitch = ver * controlPitchFactor + _trans.position.y;
-            // _yaw = hor * controlYawFactor + _trans.position.x;
-            // _roll = hor * controlRollFactor;
-            // Quaternion.Euler(_pitch, _yaw, _roll);
-            // var fwd = _trans.forward;
-            // var tg = fwd + new Vector3( hor, ver, 0f) * (Time.deltaTime * rotationSpeed);
-            // _trans.rotation = Quaternion.LookRotation(Vector3.RotateTowards(fwd, tg , 50, 0));
-            // Debug.Log(hor);
-            // Debug.Log(_trans.rotation);
-            // _trans.position += _trans.forward * (Time.deltaTime * (speed + boost));
+            _pitch = ver * rotationSpeed + _trans.position.y;
+            _yaw = hor * rotationSpeed + _trans.position.x;
+            _roll = hor * rotationSpeed;
+            _trans.rotation = Quaternion.Euler(_pitch, _yaw, _roll);
+            _trans.position += _trans.forward * (Time.deltaTime * (speed + boost));
+            yield return null;
         }
+        
+        transform.SetParent(flockParent, false);
+        
+        Destroy(_trans.gameObject);
     }
 }
