@@ -5,6 +5,8 @@ using UXF;
 
 public class ExperimentManager : MonoBehaviour
 {
+    [SerializeField] GameObject instructionEnd;
+    
     bool _isInstStartFinished, _isEvaluationFinished;
 
     void OnEnable()
@@ -50,7 +52,9 @@ public class ExperimentManager : MonoBehaviour
             trial.End();
             yield return null;
         }
-
+        
+        instructionEnd.SetActive(true);
+        
         uxfSession.End();
     }
 }
