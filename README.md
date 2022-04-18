@@ -1,10 +1,7 @@
 This repository uses [GitLFS](https://git-lfs.github.com/). Make sure that you have GitLFS installed on your machine before cloning the repository.
 
-<figure style="text-align: center;">
-<img src="https://i.gifer.com/9Li5.gif" alt="A gif image of a flying blue bird.">
-</figure>
+<img src="https://64.media.tumblr.com/tumblr_m11p8m1Pd71r01wb9o1_400.gifv" style="text-align: center;" width="auto" height="100" alt="A gif image of a flying blue bird.">
 
 
-<figure style="text-align: center; transform: scaleX(-1);">
-<img src="https://i.gifer.com/9Li5.gif" alt="A gif image of a flying blue bird.">
-</figure>
+<img src="https://64.media.tumblr.com/tumblr_m11p8m1Pd71r01wb9o1_400.gifv" style="text-align: center; transform: scaleX(-1);" width="auto" height="100"  alt="A gif image of a flying blue bird.">
+
