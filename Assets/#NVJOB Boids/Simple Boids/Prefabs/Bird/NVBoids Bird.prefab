@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -45,19 +46,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   behavioralCh: {x: 4, y: 8}
   debug: 0
-  flockNum: 6
+  flockNum: 2
   fragmentedFlock: 600
+  fragmentedFlockYLimit: 0.5
   migrationFrequency: 0.06
   posChangeFrequency: 0.7
   smoothChFrequency: 15
-  heightLimit: 0.1
-  birdPref: {fileID: 7623336724680058607, guid: 2f5f5731eb36efb4ead612880acc102e,
-    type: 3}
-  birdsNum: 2000
+  birdPref: {fileID: 7623336724680058607, guid: 2f5f5731eb36efb4ead612880acc102e, type: 3}
+  birdsNum: 20
   birdSpeed: 1
   fragmentedBirds: 20
+  fragmentedBirdsYLimit: 1
   soaring: 0.5
   verticalWawe: 20
+  rotationClamp: 0
+  rotationClampValue: 50
+  scaleRandom: {x: 1, y: 1.5}
   danger: 0
   dangerRadius: 15
   dangerSpeed: 1.5
@@ -65,3 +69,6 @@ MonoBehaviour:
   dangerLayer:
     serializedVersion: 2
     m_Bits: 0
+  HelpURL: nvjob.github.io/unity/nvjob-boids
+  ReportAProblem: nvjob.github.io/support
+  Patrons: nvjob.github.io/patrons

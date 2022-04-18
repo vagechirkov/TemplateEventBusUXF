@@ -35,7 +35,7 @@ public class ExperimentManager : MonoBehaviour
             ExpEventBus.Publish(trial.number == 1 ? ExpEvents.PracticeBegin : ExpEvents.ActionBegin);
 
             // wait for action to finish
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(10f);
             ExpEventBus.Publish(trial.number == 1 ? ExpEvents.PracticeEnd : ExpEvents.ActionEnd);
 
             // start evaluation at the end of the trial

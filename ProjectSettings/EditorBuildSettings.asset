@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Bird Boids Experiemnt.unity
+    guid: 9407f0076889c6748ad74c68c9903fa6
   m_configObjects: {}

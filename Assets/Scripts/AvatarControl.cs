@@ -57,7 +57,7 @@ public class AvatarControl : MonoBehaviour
     
     IEnumerator PracticeFlocking()
     {
-        Instantiate(birdPref, new Vector3(0, 100, 0), Quaternion.identity, flockParent);
+        Instantiate(birdPref, new Vector3(0, 100, 0) + Vector3.forward, Quaternion.identity, flockParent);
         _birdInFlock = GameObject.Find("Bird Pref B(Clone)");
         _trans = _birdInFlock.transform;
         
@@ -69,9 +69,9 @@ public class AvatarControl : MonoBehaviour
             var ver = Input.GetAxis("Vertical");
             var boost = Input.GetAxis("Jump");
             
-            _pitch = ver * rotationSpeed + _trans.position.y;
-            _yaw = hor * rotationSpeed + _trans.position.x;
-            _roll = hor * rotationSpeed;
+            _pitch += ver * rotationSpeed;
+            _yaw += hor * rotationSpeed;
+            _roll = 0;
             _trans.rotation = Quaternion.Euler(_pitch, _yaw, _roll);
             _trans.position += _trans.forward * (Time.deltaTime * (speed + boost));
             yield return null;
