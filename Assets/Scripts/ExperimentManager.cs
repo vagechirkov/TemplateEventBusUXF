@@ -26,10 +26,10 @@ public class ExperimentManager : MonoBehaviour
             trial.Begin();
 
             // start instruction at the beginning of the trial
-            // ExpEventBus.Publish(ExpEvents.InstStartBegin);
+            ExpEventBus.Publish(ExpEvents.InstStartBegin);
 
             // wait for instruction to finish
-            // yield return new WaitUntil(() => _isInstStartFinished);
+            yield return new WaitUntil(() => _isInstStartFinished);
 
             // start action event
             ExpEventBus.Publish(ExpEvents.ActionBegin);
