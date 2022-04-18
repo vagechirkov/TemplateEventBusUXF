@@ -69,10 +69,10 @@ public class AvatarControl : MonoBehaviour
             var ver = Input.GetAxis("Vertical");
             var boost = Input.GetAxis("Jump");
             
-            _pitch += ver * rotationSpeed;
-            _yaw += hor * rotationSpeed;
+            _pitch += ver * rotationSpeed / 10f;
+            _yaw += hor * rotationSpeed / 10f;
             _roll = 0;
-            _trans.rotation = Quaternion.Euler(_pitch, _yaw, _roll);
+            _trans.rotation = Quaternion.Euler(-_pitch, _yaw, _roll);
             _trans.position += _trans.forward * (Time.deltaTime * (speed + boost));
             yield return null;
         }
