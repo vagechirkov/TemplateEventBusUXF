@@ -20,8 +20,10 @@ public class AvatarControl : MonoBehaviour
     {
         ExpEventBus.Subscribe(ExpEvents.ActionBegin, () => _isAvatarControl = true);
         ExpEventBus.Subscribe(ExpEvents.PracticeBegin, () => _isAvatarControl = true);
+        
         ExpEventBus.Subscribe(ExpEvents.ActionBegin, () => StartCoroutine(Flocking()));
         ExpEventBus.Subscribe(ExpEvents.PracticeBegin, () => StartCoroutine(PracticeFlocking()));
+        
         ExpEventBus.Subscribe(ExpEvents.ActionEnd, () => _isAvatarControl = false);
         ExpEventBus.Subscribe(ExpEvents.PracticeEnd, () => _isAvatarControl = false);
     }
@@ -63,14 +65,14 @@ public class AvatarControl : MonoBehaviour
         
         transform.SetParent(_trans, false);
         
-        while (_isAvatarControl) // practice
+        while (_isAvatarControl)
         {
             var hor = Input.GetAxis("Horizontal");
             var ver = Input.GetAxis("Vertical");
             var boost = Input.GetAxis("Jump");
             
-            _pitch += ver * rotationSpeed / 10f;
-            _yaw += hor * rotationSpeed / 10f;
+            _pitch += ver * rotationSpeed;
+            _yaw += hor * rotationSpeed;
             _roll = 0;
             _trans.rotation = Quaternion.Euler(-_pitch, _yaw, _roll);
             _trans.position += _trans.forward * (Time.deltaTime * (speed + boost));
